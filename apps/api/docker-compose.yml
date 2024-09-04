@@ -1,0 +1,17 @@
+version: '4.34.0'
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - 2010:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data_autospace:/var/lib/postgresql/data
+
+volumes:
+  db_data_autospace:
