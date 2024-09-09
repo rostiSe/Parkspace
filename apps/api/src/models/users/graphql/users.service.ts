@@ -18,8 +18,11 @@ import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) {}
-  
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+
   registerWithProvider({ name, uid, type, image }: RegisterWithProviderInput) {
     return this.prisma.user.create({
       data: {
@@ -101,9 +104,12 @@ export class UsersService {
       throw new UnauthorizedException('Invalid Credentials')
     }
 
-    const jwtToken = this.jwtService.sign({ uid: user.uid }, {
-      algorithm: 'HS256',
-    })
+    const jwtToken = this.jwtService.sign(
+      { uid: user.uid },
+      {
+        algorithm: 'HS256',
+      },
+    )
     return { token: jwtToken }
   }
 

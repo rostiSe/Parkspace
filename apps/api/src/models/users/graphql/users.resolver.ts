@@ -26,25 +26,24 @@ export class UsersResolver {
     @Args('registerWithCredentialsInput') args: RegisterWithCredentialsInput,
   ) {
     return this.usersService.registerWithCredentials(args)
-    
   }
 
   @Mutation(() => User)
   async registerWithProvider(
     @Args('registerWithProviderInput') args: RegisterWithProviderInput,
   ) {
-   return this.usersService.registerWithProvider(args)
+    return this.usersService.registerWithProvider(args)
   }
 
   @Mutation(() => LoginOutput)
-  async login(@Args('loginInput') args: LoginInput){
+  async login(@Args('loginInput') args: LoginInput) {
     return this.usersService.login(args)
   }
 
   @AllowAuthenticated()
-  @Query(()=>User)
-  whoami(@GetUser() user: GetUserType){
-    return this.usersService.findOne({where:{uid: user.uid}})
+  @Query(() => User)
+  whoami(@GetUser() user: GetUserType) {
+    return this.usersService.findOne({ where: { uid: user.uid } })
   }
 
   @Query(() => [User], { name: 'users' })
