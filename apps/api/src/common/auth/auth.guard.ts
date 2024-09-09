@@ -39,11 +39,15 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verify(token)
       const uid = payload.uid
       if (!uid) {
-        throw new UnauthorizedException('Invalid token. No uid present in the token.')
+        throw new UnauthorizedException(
+          'Invalid token. No uid present in the token.',
+        )
       }
       const user = await this.prisma.user.findUnique({ where: { uid } })
       if (!user) {
-        throw new UnauthorizedException('Invalid token. User not found with this uid.')
+        throw new UnauthorizedException(
+          'Invalid token. User not found with this uid.',
+        )
       }
       req.user = payload
     } catch (err) {
@@ -84,7 +88,11 @@ export class AuthGuard implements CanActivate {
       this.prisma.admin.findUnique({ where: { uid } }),
       // Add promises for other role models here
     ])
-    admin && roles.push('admin')
+
+    //ESlint didnt like the code before with the && Operator
+    if (admin) {
+      roles.push('admin')
+    }
 
     return roles
   }

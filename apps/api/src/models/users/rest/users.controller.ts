@@ -40,7 +40,9 @@ export class UsersController {
 
   @ApiOkResponse({ type: [UserEntity] })
   @Get()
-  findAll(@Query() { skip, take, order, sortBy, search, searchBy  }: UserQueryDto) {
+  findAll(
+    @Query() { skip, take, order, sortBy, search, searchBy }: UserQueryDto,
+  ) {
     return this.prisma.user.findMany({
       ...(skip ? { skip: +skip } : null),
       ...(take ? { take: +take } : null),

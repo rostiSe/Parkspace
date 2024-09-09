@@ -9,8 +9,8 @@ import { PrismaModule } from './common/prisma/prisma.module'
 import { UsersModule } from './models/users/users.module'
 import { JwtModule } from '@nestjs/jwt'
 
-// TODO; Mover to util library
-const MAX_AGE = 60 * 60 * 24 
+// TODO; Move to util library
+const MAX_AGE = 60 * 60 * 24
 
 @Module({
   imports: [
@@ -29,7 +29,8 @@ const MAX_AGE = 60 * 60 * 24
         numberScalarMode: 'integer',
       },
     }),
-    PrismaModule, UsersModule
+    PrismaModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
